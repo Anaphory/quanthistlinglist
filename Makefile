@@ -1,25 +1,30 @@
 QMAIL_PREFIX?="lists"
-dir=`pwd`
+EZMLM_ROOT?=~/ezmlm
 
 # -a – archive (default)
 # -d – Digest
 # -i – Web-indexed
 # -m – Moderated
-clean:
-	rm ~/.qmail-${QMAIL_PREFIX}-*
-	git clean -dfx
 
-discuss:
-	mkdir -p ${dir}/discuss
-	ezmlm-make -eadi ${dir}/discuss \
+clean:
+	rm -f ~/.qmail-${QMAIL_PREFIX}-*
+	rm -rf ${EZMLM_ROOT}
+
+${EZMLM_ROOT} :
+	mkdir ${EZMLM_ROOT}
+
+${EZMLM_ROOT}/discuss : ${EZMLM_ROOT}
+	ezmlm-make -adi ${EZMLM_ROOT}/discuss \
 		~/.qmail-${QMAIL_PREFIX}-discuss \
 		discuss lists.model-ling.eu
+	cp -R discuss/* ${EZMLM_ROOT}/discuss/
 
-discuss:
-	mkdir -p ${dir}/info
-	ezmlm-make -eadim ${dir}/info \
+${EZMLM_ROOT}/info : ${EZMLM_ROOT}
+	ezmlm-make -adim ${EZMLM_ROOT}/info \
 		~/.qmail-${QMAIL_PREFIX}-info \
 		info lists.model-ling.eu
-	ezmlm-sub ${dir}/info mod ${OWNER}
+	cp -R info/* ${EZMLM_ROOT}/info/
+	ezmlm-sub ${EZMLM_ROOT}/info mod ${OWNER}
 
+lists : ${EZMLM_ROOT}/info ${EZMLM_ROOT}/discuss
 
