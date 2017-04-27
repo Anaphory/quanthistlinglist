@@ -32,3 +32,13 @@ update:
 
 lists: ${EZMLM_ROOT}/info ${EZMLM_ROOT}/discuss update
 
+~/cgi-bin/ezmlmbrowse.ini:
+	cp ezmlmbrowse.ini ~/cgi-bin/
+
+~/cgi-bin/lists:
+	cp lists ~/cgi-bin/
+	chmod u+x ~/cgi-bin/lists
+
+archive: ~/cgi-bin/lists ~/cgi-bin/ezmlmbrowse.ini
+
+
