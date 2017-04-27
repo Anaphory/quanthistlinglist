@@ -10,6 +10,8 @@ EZMLM_ROOT?=~/ezmlm
 clean:
 	rm -f ~/.qmail-${QMAIL_PREFIX}-*
 	rm -rf ${EZMLM_ROOT}
+	rm ~/cgi-bin/ezmlmbrowse.ini
+	rm ~/cgi-bin/lists
 
 ${EZMLM_ROOT} :
 	mkdir ${EZMLM_ROOT}
