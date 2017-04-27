@@ -17,14 +17,18 @@ ${EZMLM_ROOT}/discuss : ${EZMLM_ROOT}
 	ezmlm-make -adi ${EZMLM_ROOT}/discuss \
 		~/.qmail-${QMAIL_PREFIX}-discuss \
 		discuss lists.model-ling.eu
-	cp -R discuss/* ${EZMLM_ROOT}/discuss/
 
 ${EZMLM_ROOT}/info : ${EZMLM_ROOT}
 	ezmlm-make -adim ${EZMLM_ROOT}/info \
 		~/.qmail-${QMAIL_PREFIX}-info \
 		info lists.model-ling.eu
-	cp -R info/* ${EZMLM_ROOT}/info/
-	ezmlm-sub ${EZMLM_ROOT}/info mod ${OWNER}
+	if [ -n ${OWNER} ] ; \
+		then ezmlm-sub ${EZMLM_ROOT}/info mod ${OWNER} ; \
+	fi
 
-lists : ${EZMLM_ROOT}/info ${EZMLM_ROOT}/discuss
+update:
+	cp -R discuss/* ${EZMLM_ROOT}/discuss/
+	cp -R info/* ${EZMLM_ROOT}/info/
+
+lists: ${EZMLM_ROOT}/info ${EZMLM_ROOT}/discuss update
 
