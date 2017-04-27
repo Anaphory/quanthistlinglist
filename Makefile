@@ -1,10 +1,11 @@
-QMAIL_PREFIX?="lists"
+QMAIL_PREFIX?=lists
 EZMLM_ROOT?=~/ezmlm
 
 # -a – archive (default)
 # -d – Digest
-# -i – Web-indexed
 # -m – Moderated
+# -i – Web-indexed
+# -n – permit remote new text files editing
 
 clean:
 	rm -f ~/.qmail-${QMAIL_PREFIX}-*
@@ -19,7 +20,7 @@ ${EZMLM_ROOT}/discuss : ${EZMLM_ROOT}
 		discuss lists.model-ling.eu
 
 ${EZMLM_ROOT}/info : ${EZMLM_ROOT}
-	ezmlm-make -adim ${EZMLM_ROOT}/info \
+	ezmlm-make -admi ${EZMLM_ROOT}/info \
 		~/.qmail-${QMAIL_PREFIX}-info \
 		info lists.model-ling.eu
 	if [ -n ${OWNER} ] ; \
